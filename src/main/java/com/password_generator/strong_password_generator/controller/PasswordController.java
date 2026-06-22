@@ -1,23 +1,22 @@
 package com.password_generator.strong_password_generator.controller;
 
-import com.password_generator.strong_password_generator.service.PasswordService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.password_generator.strong_password_generator.dto.PasswordResponse;
+import com.password_generator.strong_password_generator.service.PasswordGeneratorService;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/password")
+@RequestMapping("/api/v1/passwords")
 public class PasswordController {
 
-    @Autowired
-    private PasswordService passwordService;
+    private final PasswordGeneratorService service;
+
+    public PasswordController(PasswordGeneratorService service) {
+        this.service = service;
+    }
 
     @GetMapping("/generate")
-    public String generatePassword()
-    {
-        return passwordService.generateStrongPassword();
+    public ResponseEntity<PasswordResponse> generate(@RequestParam(defaultValue = "16") int length) {
+        return ResponseEntity.ok(new PasswordResponse(service.generate(length), length));
     }
-    
 }
-

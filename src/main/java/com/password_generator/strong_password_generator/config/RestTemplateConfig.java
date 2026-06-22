@@ -1,4 +1,4 @@
-package com.password_generator.strong_password_generator.Config;
+package com.password_generator.strong_password_generator.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -11,5 +11,4 @@ public class RestTemplateConfig {
     public RestTemplate restTemplate() {
         return new RestTemplate();
     }
-
 }
